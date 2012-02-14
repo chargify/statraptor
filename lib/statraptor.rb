@@ -1,11 +1,9 @@
 require 'rubygems'
-require 'active_resource'
+require 'typhoeus'
+require 'json'
 require 'statraptor/version'
 require 'statraptor/config'
-require 'statraptor/resources/base'
-require 'statraptor/resources/user'
-require 'statraptor/resources/project'
-require 'statraptor/resources/graph'
+require 'statraptor/client'
 
 module StatRaptor
   extend Config

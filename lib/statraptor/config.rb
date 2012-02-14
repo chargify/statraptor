@@ -13,6 +13,9 @@ module StatRaptor
     # The timeout in seconds that will be used if none is set
     DEFAULT_TIMEOUT = 2
 
+    # The default platform_credentials if none are set
+    DEFAULT_PLATFORM_CREDENTIALS = nil
+
     # An array of valid keys in the options hash when configuring a {StatRaptor::Client}
     VALID_OPTIONS_KEYS = [
       :endpoint,
@@ -31,8 +34,6 @@ module StatRaptor
     # Convenience method to allow configuration options to be set in a block
     def configure
       yield self
-      Base.site    = endpoint.blank? ? DEFAULT_ENDPOINT : endpoint
-      Base.timeout = timeout.blank? ? DEFAULT_TIMEOUT : timeout
       self
     end
 
@@ -45,9 +46,10 @@ module StatRaptor
 
     # Reset all configuration options to defaults
     def reset
-      self.endpoint   = DEFAULT_ENDPOINT
-      self.user_agent = DEFAULT_USER_AGENT
-      self.timeout    = DEFAULT_TIMEOUT
+      self.endpoint             = DEFAULT_ENDPOINT
+      self.user_agent           = DEFAULT_USER_AGENT
+      self.timeout              = DEFAULT_TIMEOUT
+      self.platform_credentials = DEFAULT_PLATFORM_CREDENTIALS
       self
     end
   end

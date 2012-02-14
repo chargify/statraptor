@@ -1,2 +1,4 @@
 pkg
 .rvmrc
+spec/remote.yml
+spec/cassettes

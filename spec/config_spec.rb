@@ -31,6 +31,12 @@ describe StatRaptor do
     end
   end
 
+  describe ".platform_credentials" do
+    it "should return the default platform_credentials" do
+      StatRaptor.platform_credentials.should == StatRaptor::Config::DEFAULT_PLATFORM_CREDENTIALS
+    end
+  end
+
   describe ".platform_credentials=" do
     it "should set the platform_credentials" do
       StatRaptor.platform_credentials = "ABC123"
@@ -38,21 +44,27 @@ describe StatRaptor do
     end
   end
 
-  describe ".configure" do
-    it "sets the site on the base class" do
-      StatRaptor.configure do |config|
-        config.endpoint = "http://example.com/api/v1"
-      end
-
-      StatRaptor::Base.site.to_s.should == "http://example.com/api/v1"
+  describe ".timeout" do
+    it "should return the default timeout" do
+      StatRaptor.timeout.should == StatRaptor::Config::DEFAULT_TIMEOUT
     end
+  end
 
-    it "sets the timeout on the base class" do
-      StatRaptor.configure do |config|
-        config.timeout = 5
+  describe ".timeout=" do
+    it "should return the timeout" do
+      StatRaptor.timeout = 15
+      StatRaptor.timeout.should == 15
+    end
+  end
+
+  describe ".configure" do
+    StatRaptor::Config::VALID_OPTIONS_KEYS.each do |key|
+      it "should set the #{key}" do
+        StatRaptor.configure do |config|
+          config.send("#{key}=", key)
+          StatRaptor.send(key).should == key
+        end
       end
-
-      StatRaptor::Base.timeout.should == 5
     end
   end
 
