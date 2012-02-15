@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Shay Frendt"]
   s.email       = "shay@chargify.com"
   s.homepage    = "http://github.com/chargify/statraptor"
-  s.summary     = "A StatRaptor API wrapper for Ruby using ActiveResource"
+  s.summary     = "A StatRaptor API wrapper for Ruby"
   s.description = "StatRaptor gathers all your metrics into one simple-to-use dashboard."
 
   s.required_rubygems_version = ">= 1.3.6"
