@@ -3,7 +3,7 @@ $:.unshift File.expand_path('../lib', File.dirname(__FILE__))
 require 'statraptor'
 require 'rspec'
 require 'vcr'
-require 'fakeweb'
+require 'webmock/rspec'
 require 'yaml'
 
 unless File.exists?(File.join(File.dirname(__FILE__), 'remote.yml'))
@@ -29,10 +29,10 @@ RSpec.configure do |config|
 end
 
 VCR.configure do |config|
-  config.hook_into :fakeweb
+  config.hook_into :webmock
   config.cassette_library_dir = 'spec/cassettes'
   config.configure_rspec_metadata!
-  config.default_cassette_options = { :record => :once, :match_requests_on => [:uri, :body, :headers]}
+  config.default_cassette_options = {:record => :once, :match_requests_on => [:uri, :body, :headers]}
 end
 
 def platform_credentials

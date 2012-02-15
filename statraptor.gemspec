@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('rake', '~> 0.9.2')
   s.add_development_dependency('rspec', '~> 2.8.0')
   s.add_development_dependency('vcr', '2.0.0.rc1')
-  s.add_development_dependency('fakeweb', '1.3.0')
+  s.add_development_dependency('webmock', '1.7.10')
   s.add_development_dependency('guard-rspec', '~> 0.6.0')
   s.add_development_dependency('growl', '~> 1.0.3')
   s.add_development_dependency('rb-fsevent', '~> 0.9.0')
