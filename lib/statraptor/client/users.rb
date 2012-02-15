@@ -10,14 +10,7 @@ module StatRaptor
 
       def delete_user(user_credentials)
         response = Typhoeus::Request.delete("#{StatRaptor.endpoint}/users/#{user_credentials}", :params => {:platform_credentials => StatRaptor.platform_credentials})
-
-        case response.code
-        when 200
-          return true
-        when 422
-          message = JSON.parse(response.body)["errors"].join(",")
-          raise StatRaptor::Error::NotFound.new(message)
-        end
+        handle_response(response)
       end
     end
   end

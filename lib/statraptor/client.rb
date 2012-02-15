@@ -26,5 +26,15 @@ module StatRaptor
       end
     end
 
+    def handle_response(response)
+      case response.code
+      when 200
+        return true
+      when 422
+        message = JSON.parse(response.body)["errors"].join(",")
+        raise StatRaptor::Error::NotFound.new(message)
+      end
+    end
+
   end
 end
