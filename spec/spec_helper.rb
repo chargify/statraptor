@@ -47,6 +47,10 @@ def chargify_subdomain
   remote_configuration["subdomain"]
 end
 
+def user_credentials
+  remote_configuration["user_credentials"]
+end
+
 private
 
 def remote_configuration
