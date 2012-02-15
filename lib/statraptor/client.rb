@@ -1,4 +1,5 @@
 require 'statraptor/config'
+require 'statraptor/error'
 
 module StatRaptor
   class Client
