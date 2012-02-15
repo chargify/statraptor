@@ -4,16 +4,11 @@ describe StatRaptor::Client::Users do
   context "#create", :vcr do
     it "returns the user json on success" do
       client = StatRaptor::Client.new
-      user = client.create_user(:email => "luke.skywalker@example.com", :chargify_api_key => chargify_api_key)
-      response_hash = {
-        :first_name => nil, 
-        :last_name => nil, 
-        :email => "luke.skywalker@example.com", 
-        :phone_number => nil, 
-        :chargify_api_key => chargify_api_key, 
-        :user_credentials => "Mtmb6a1cHo5iEiz7X5U"
-      }
-      user.should == response_hash.to_json
+      user_json = client.create_user(:email => "timmy@example.com", :chargify_api_key => chargify_api_key)
+      user_hash = JSON.parse(user_json)
+      user_hash["user_credentials"].should_not be_nil
+      user_hash["chargify_api_key"].should == chargify_api_key
+      user_hash["email"].should == "timmy@example.com"
     end
 
     it "raises an exception if the user was not created"
