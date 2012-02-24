@@ -2,6 +2,7 @@ require 'statraptor/version'
 
 module StatRaptor
   # Defines constants and methods related to configuration
+  # Inspired by the Twitter gem config: http://bit.ly/A2RPvv
   module Config
 
     # The endpoint that will be used to connect if none is set
