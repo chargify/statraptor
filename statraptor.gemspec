@@ -8,9 +8,9 @@ Gem::Specification.new do |s|
   s.name        = "statraptor"
   s.version     = StatRaptor::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.date        = "2012-11-08"
+  s.date        = "2012-02-24"
   s.authors     = ["Shay Frendt"]
-  s.email       = "shay@chargify.com"
+  s.email       = "shay.frendt@gmail.com"
   s.homepage    = "http://github.com/chargify/statraptor"
   s.summary     = "A StatRaptor API wrapper for Ruby"
   s.description = "StatRaptor gathers all your metrics into one simple-to-use dashboard."
