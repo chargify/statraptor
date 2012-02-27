@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe StatRaptor do
+  before do
+    StatRaptor.reset
+  end
+
   after do
     StatRaptor.reset
   end
@@ -51,9 +55,25 @@ describe StatRaptor do
   end
 
   describe ".timeout=" do
-    it "should return the timeout" do
+    it "should set the timeout" do
       StatRaptor.timeout = 15
       StatRaptor.timeout.should == 15
+    end
+  end
+
+  describe ".disable_ssl_peer_verification" do
+    it "should return the default setting" do
+      StatRaptor.disable_ssl_peer_verification.should == StatRaptor::Config::DEFAULT_DISABLE_SSL_PEER_VERIFICATION
+    end
+  end
+
+  describe ".disable_ssl_peer_verification=" do
+    it "should set the disable_ssl_peer_verification option" do
+      StatRaptor.disable_ssl_peer_verification = true
+      StatRaptor.disable_ssl_peer_verification.should be_true
+
+      StatRaptor.disable_ssl_peer_verification = false
+      StatRaptor.disable_ssl_peer_verification.should be_false
     end
   end
 

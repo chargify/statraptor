@@ -17,12 +17,17 @@ module StatRaptor
     # The default platform_credentials if none are set
     DEFAULT_PLATFORM_CREDENTIALS = nil
 
+    # If you’re hitting a non-verifiable SSL server
+    # then you’ll have to disable peer verification to make SSL work
+    DEFAULT_DISABLE_SSL_PEER_VERIFICATION = false
+
     # An array of valid keys in the options hash when configuring a {StatRaptor::Client}
     VALID_OPTIONS_KEYS = [
       :endpoint,
       :user_agent,
       :timeout,
-      :platform_credentials
+      :platform_credentials,
+      :disable_ssl_peer_verification
     ]
 
     attr_accessor *VALID_OPTIONS_KEYS
@@ -47,10 +52,11 @@ module StatRaptor
 
     # Reset all configuration options to defaults
     def reset
-      self.endpoint             = DEFAULT_ENDPOINT
-      self.user_agent           = DEFAULT_USER_AGENT
-      self.timeout              = DEFAULT_TIMEOUT
-      self.platform_credentials = DEFAULT_PLATFORM_CREDENTIALS
+      self.endpoint                      = DEFAULT_ENDPOINT
+      self.user_agent                    = DEFAULT_USER_AGENT
+      self.timeout                       = DEFAULT_TIMEOUT
+      self.platform_credentials          = DEFAULT_PLATFORM_CREDENTIALS
+      self.disable_ssl_peer_verification = DEFAULT_DISABLE_SSL_PEER_VERIFICATION
       self
     end
   end
