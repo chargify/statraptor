@@ -28,4 +28,14 @@ describe StatRaptor::Client::Users do
       }.should raise_error(StatRaptor::Error::NotFound)
     end
   end
+
+  context "#get_users", :vcr do
+    fit "returns all Chargify users in StatRaptor" do
+      user_json = client.create_user(:email => "timmy@example.com", :chargify_api_key => chargify_api_key)
+      puts user_json
+
+      users_json = client.get_users
+      JSON.parse(users_json).count.should == 1
+    end
+  end
 end
