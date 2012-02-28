@@ -1,0 +1,3 @@
+StatRaptor Todo:
+- Raise an error on a timeout
+- Set the user_agent for all HTTP calls

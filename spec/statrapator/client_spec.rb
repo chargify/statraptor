@@ -33,7 +33,8 @@ describe StatRaptor::Client do
         :endpoint => "http://example.com",
         :timeout => 300,
         :platform_credentials => "ABC12345",
-        :user_agent => "Fu Manchu Ruby Gem 2.0.0"
+        :user_agent => "Fu Manchu Ruby Gem 2.0.0",
+        :disable_ssl_peer_verification => true
       }
     end
 

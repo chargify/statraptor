@@ -4,38 +4,30 @@ describe StatRaptor::Client::Users do
   let(:client) { StatRaptor::Client.new }
 
   context "#create", :vcr do
-    it "returns the user json on success" do
-      user_json = client.create_user(:email => "timmy@example.com", :chargify_api_key => chargify_api_key)
-      user_hash = JSON.parse(user_json)
-      user_hash["user_credentials"].should_not be_nil
-      user_hash["chargify_api_key"].should == chargify_api_key
-      user_hash["email"].should == "timmy@example.com"
+    it "returns a user hash on success" do
+      user = client.create_user(:email => "austin@example.com", :chargify_api_key => "ABC123")
+      user["user_credentials"].should_not be_nil
+      user["chargify_api_key"].should == "ABC123"
+      user["email"].should == "austin@example.com"
     end
-
-    it "raises an exception if the user was not created"
   end
 
   context "#delete_user", :vcr do
-    it "returns true on success" do
-      user_json = client.create_user(:email => "ronny@example.com", :chargify_api_key => chargify_api_key)
-      user_hash = JSON.parse(user_json)
-      client.delete_user(user_hash["user_credentials"]).should be_true
-    end
-
-    it "raises an NotFound exception if the user does not exist" do
-      lambda {
-        client.delete_user("abc123")
-      }.should raise_error(StatRaptor::Error::NotFound)
+    it "returns the user hash on success" do
+      user = client.create_user(:email => "leroy@example.com", :chargify_api_key => "XYZ123")
+      deleted_user = client.delete_user(user["user_credentials"])
+      deleted_user["user_credentials"].should == user["user_credentials"]
+      deleted_user["chargify_api_key"].should == "XYZ123"
+      deleted_user["email"].should == "leroy@example.com"
     end
   end
 
   context "#get_users", :vcr do
-    fit "returns all Chargify users in StatRaptor" do
-      user_json = client.create_user(:email => "timmy@example.com", :chargify_api_key => chargify_api_key)
-      puts user_json
-
-      users_json = client.get_users
-      JSON.parse(users_json).count.should == 1
+    it "returns an array of hashes" do
+      users = client.get_users
+      users.count.should > 1
+      users.should be_a(Array)
+      users.first.should be_a(Hash)
     end
   end
 end

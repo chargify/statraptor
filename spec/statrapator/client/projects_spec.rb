@@ -4,39 +4,39 @@ describe StatRaptor::Client::Projects do
   let(:client) { StatRaptor::Client.new }
 
   context "#create_project", :vcr do
-    it "returns the project json on success" do
-      user_json = client.create_user(:email => "zippy@example.com", :chargify_api_key => chargify_api_key)
-      user_hash = JSON.parse(user_json)
+    before do
+      @user = client.create_user(:email => "tommy@example.com", :chargify_api_key => "ABC123")
+      @user["user_credentials"].should_not be_nil
+    end
 
-      project_json = client.create_project(:user_credentials => user_hash["user_credentials"], :project => {
+    it "returns a project hash on success" do
+      project = client.create_project(:user_credentials => @user["user_credentials"], :project => {
        :name => "Zippy Sunday", :subdomain => "zippy-sunday", :component => "basic" 
       })
 
-      project_hash = JSON.parse(project_json)
-      project_hash["name"].should == "Zippy Sunday"
-      project_hash["subdomain"].should == "zippy-sunday"
-      project_hash["component"].should == "basic"
+      project["name"].should == "Zippy Sunday"
+      project["subdomain"].should == "zippy-sunday"
+      project["component"].should == "basic"
     end
-
-    it "raises an exception if the project was not created"
   end
 
   context "#delete_project", :vcr do
-    it "returns true on success" do
-      user_json = client.create_user(:email => "sammy@example.com", :chargify_api_key => chargify_api_key)
-      user_hash = JSON.parse(user_json)
-
-      project_json = client.create_project(:user_credentials => user_hash["user_credentials"], :project => {
+    it "returns the project hash on success" do
+      user = client.create_user(:email => "sammy@example.com", :chargify_api_key => "ABC123")
+      project = client.create_project(:user_credentials => user["user_credentials"], :project => {
        :name => "Modern Marvels", :subdomain => "modern-marvels", :component => "advanced" 
       })
 
-      client.delete_project(:user_credentials => user_hash["user_credentials"], :subdomain => "modern-marvels").should be_true
+      deleted_project = client.delete_project(:user_credentials => user["user_credentials"], :subdomain => "modern-marvels")
+      deleted_project["name"].should == "Modern Marvels"
+      deleted_project["subdomain"].should == "modern-marvels"
+      deleted_project["component"].should == "advanced"
     end
 
-    it "raises an exception if the project was not deleted" do
+    it "raises an unauthorized exception if the user credentials are incorrect" do
       lambda {
         client.delete_project(:user_credentials => "abc123", :subdomain => "modern-marvels")
-      }.should raise_error(StatRaptor::Error::NotFound)
+      }.should raise_error(StatRaptor::Error::Unauthorized, "Invalid user API key specified")
     end
   end
 end

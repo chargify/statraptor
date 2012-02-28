@@ -24,6 +24,8 @@ RSpec.configure do |config|
   config.before(:all) do
     StatRaptor.configure do |config|
       config.platform_credentials = platform_credentials
+      config.endpoint = statraptor_endpoint
+      config.disable_ssl_peer_verification = true
     end
   end
 end
@@ -32,7 +34,7 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.cassette_library_dir = 'spec/cassettes'
   config.configure_rspec_metadata!
-  config.default_cassette_options = {:record => :new_episodes, :match_requests_on => [:uri, :body, :headers]}
+  config.default_cassette_options = {:record => :once, :match_requests_on => [:uri, :body, :headers]}
 end
 
 def platform_credentials
@@ -49,6 +51,10 @@ end
 
 def user_credentials
   remote_configuration["user_credentials"]
+end
+
+def statraptor_endpoint
+  remote_configuration["endpoint"]
 end
 
 private

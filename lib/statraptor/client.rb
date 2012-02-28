@@ -1,5 +1,7 @@
 require 'statraptor/config'
 require 'statraptor/error'
+require 'statraptor/error/not_found'
+require 'statraptor/error/unauthorized'
 
 module StatRaptor
   class Client
@@ -26,14 +28,64 @@ module StatRaptor
       end
     end
 
+    private
+
+    def get(url, params = {})
+      request_and_parse :get, url, params
+    end
+
+    def post(url, params = {})
+      request_and_parse :post, url, params
+    end
+
+    def put(url, params = {})
+      request_and_parse :put, url, params
+    end
+
+    def delete(url, params = {})
+      request_and_parse :delete, url, params
+    end
+
+    def request_and_parse(method, url, params = {})
+      response = request_api_response(method, url, params)
+      handle_response(response)
+      parse_response(response)
+    end
+
+    def request_api_response(method, url, params = {})
+      params.merge!(:platform_credentials => StatRaptor.platform_credentials)
+
+      Typhoeus::Request.run(
+        "#{StatRaptor.endpoint}/api/v1#{url}",
+        :method => method,
+        :params => params,
+        :disable_ssl_peer_verification => StatRaptor.disable_ssl_peer_verification,
+        :timeout => StatRaptor.timeout
+      )
+    end
+
+    def parse_response(response)
+      JSON.parse(response.body)
+    rescue JSON::ParserError
+      {}
+    end
+
     def handle_response(response)
       case response.code
       when 200
         return true
-      when 422
-        message = JSON.parse(response.body)["errors"].join(",")
-        raise StatRaptor::Error::NotFound.new(message)
+      when 404
+        raise StatRaptor::Error::NotFound.new(format_error(response))
+      when 401
+        raise StatRaptor::Error::Unauthorized.new(format_error(response))
+      else
+        raise StatRaptor::Error.new(format_error(response))
       end
+    end
+
+    def format_error(response)
+      parsed_response = parse_response(response)
+      parsed_response["errors"] ? parsed_response["errors"].join(", ") : ''
     end
 
   end

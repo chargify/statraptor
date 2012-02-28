@@ -1,16 +1,16 @@
-require 'statraptor/error/not_found'
-
 module StatRaptor
   class Client
     module Users
-      def create_user(params={})
-        response = Typhoeus::Request.post("#{StatRaptor.endpoint}/users", :params => {:platform_credentials => StatRaptor.platform_credentials, :user => params })
-        response.body
+      def create_user(params = {})
+        post("/users.json", :user => params)
       end
 
       def delete_user(user_credentials)
-        response = Typhoeus::Request.delete("#{StatRaptor.endpoint}/users/#{user_credentials}", :params => {:platform_credentials => StatRaptor.platform_credentials})
-        handle_response(response)
+        delete("/users/#{user_credentials}.json")
+      end
+
+      def get_users
+        get("/users.json")
       end
     end
   end

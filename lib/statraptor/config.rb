@@ -11,8 +11,8 @@ module StatRaptor
     # The value sent in the 'User-Agent' header if none is set
     DEFAULT_USER_AGENT = "StatRaptor Ruby Gem #{StatRaptor::VERSION}"
 
-    # The timeout in seconds that will be used if none is set
-    DEFAULT_TIMEOUT = 2
+    # The timeout (in milliseconds) that will be used if none is set
+    DEFAULT_TIMEOUT = 5000 # 5 seconds
 
     # The default platform_credentials if none are set
     DEFAULT_PLATFORM_CREDENTIALS = nil
