@@ -88,4 +88,33 @@ describe StatRaptor do
     end
   end
 
+  describe ".timeout_in_seconds" do
+    it "returns the read timeout in seconds" do
+      StatRaptor.timeout = 1000
+      StatRaptor.timeout_in_seconds.should == 1.0
+    end
+  end
+
+  context "HTTP_HEADERS" do
+    it "should set the Accept header" do
+      StatRaptor::Config::HTTP_HEADERS['Accept'].should == "application/json"
+    end
+
+    it "should set the User-Agent header" do
+      StatRaptor::Config::HTTP_HEADERS['User-Agent'].should == "StatRaptor RubyGem #{StatRaptor::VERSION} - http://github.com/chargify/statraptor"
+    end
+  end
+
+  describe ".full_uri" do
+    it "accepts a path and returns the full URI to the StatRaptor API" do
+      StatRaptor.endpoint = "https://statraptor.com"
+      StatRaptor.full_uri("/api/v1/users").should == "https://statraptor.com/api/v1/users"
+    end
+
+    it "utilizes the current StatRaptor endpoint config option" do
+      StatRaptor.endpoint = "http://example.com"
+      StatRaptor.full_uri("/api/v2/path").should == "http://example.com/api/v2/path"
+    end
+  end
+
 end

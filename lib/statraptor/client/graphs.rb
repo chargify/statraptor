@@ -20,7 +20,7 @@ module StatRaptor
       private
 
       def graph_data(type, params = {})
-        get("/graphs/#{type}.json", params)
+        get("/api/v1/graphs/#{type}.json", params)
       end
     end
   end

@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('activeresource', '>= 2.3.5')
   s.add_runtime_dependency('typhoeus', '>= 0.3.3')
   s.add_runtime_dependency('json', '>= 1.4.6')
+  s.add_runtime_dependency('rest-client', '>= 1.6.7')
 
   # Development Dependencies
   s.add_development_dependency('rake', '~> 0.9.2')
@@ -34,4 +35,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency('guard-rspec', '~> 0.6.0')
   s.add_development_dependency('growl', '~> 1.0.3')
   s.add_development_dependency('rb-fsevent', '~> 0.9.0')
+  s.add_development_dependency('uuid', '~> 2.3.5')
 end

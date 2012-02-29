@@ -5,7 +5,7 @@ describe StatRaptor::Client::Projects do
 
   context "#create_project", :vcr do
     before do
-      @user = client.create_user(:email => "tommy@example.com", :chargify_api_key => "ABC123")
+      @user = client.create_user(:email => random_email, :chargify_api_key => "ABC123")
       @user["user_credentials"].should_not be_nil
     end
 
@@ -22,7 +22,7 @@ describe StatRaptor::Client::Projects do
 
   context "#delete_project", :vcr do
     it "returns the project hash on success" do
-      user = client.create_user(:email => "sammy@example.com", :chargify_api_key => "ABC123")
+      user = client.create_user(:email => random_email, :chargify_api_key => "ABC123")
       project = client.create_project(:user_credentials => user["user_credentials"], :project => {
        :name => "Modern Marvels", :subdomain => "modern-marvels", :component => "advanced" 
       })

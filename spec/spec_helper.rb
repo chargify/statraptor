@@ -5,6 +5,7 @@ require 'rspec'
 require 'vcr'
 require 'webmock/rspec'
 require 'yaml'
+require 'uuid'
 
 unless File.exists?(File.join(File.dirname(__FILE__), 'remote.yml'))
   STDERR.puts "\nERROR: Make sure a remote.yml file exists at ./spec/remote.yml\n\n"
@@ -34,7 +35,7 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.cassette_library_dir = 'spec/cassettes'
   config.configure_rspec_metadata!
-  config.default_cassette_options = {:record => :once, :match_requests_on => [:uri, :body, :headers]}
+  config.default_cassette_options = {:record => :new_episodes, :match_requests_on => [:uri, :body, :headers]}
 end
 
 def platform_credentials
@@ -61,4 +62,8 @@ private
 
 def remote_configuration
   @remote_configuration ||= YAML.load_file(File.expand_path(File.join(File.dirname(__FILE__), 'remote.yml')))
+end
+
+def random_email
+  "statraptor-gem-test-email-#{UUID.generate}@example.com"
 end

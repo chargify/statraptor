@@ -5,20 +5,22 @@ describe StatRaptor::Client::Users do
 
   context "#create", :vcr do
     it "returns a user hash on success" do
-      user = client.create_user(:email => "austin@example.com", :chargify_api_key => "ABC123")
+      email = random_email
+      user = client.create_user(:email => email, :chargify_api_key => "ABC123")
       user["user_credentials"].should_not be_nil
       user["chargify_api_key"].should == "ABC123"
-      user["email"].should == "austin@example.com"
+      user["email"].should == email
     end
   end
 
   context "#delete_user", :vcr do
     it "returns the user hash on success" do
-      user = client.create_user(:email => "leroy@example.com", :chargify_api_key => "XYZ123")
+      email = random_email
+      user = client.create_user(:email => email, :chargify_api_key => "XYZ123")
       deleted_user = client.delete_user(user["user_credentials"])
       deleted_user["user_credentials"].should == user["user_credentials"]
       deleted_user["chargify_api_key"].should == "XYZ123"
-      deleted_user["email"].should == "leroy@example.com"
+      deleted_user["email"].should == email
     end
   end
 

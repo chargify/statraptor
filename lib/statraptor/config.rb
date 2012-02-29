@@ -21,6 +21,11 @@ module StatRaptor
     # then you’ll have to disable peer verification to make SSL work
     DEFAULT_DISABLE_SSL_PEER_VERIFICATION = false
 
+    HTTP_HEADERS = {
+      'Accept' => 'application/json',
+      'User-Agent' => "StatRaptor RubyGem #{StatRaptor::VERSION} - http://github.com/chargify/statraptor",
+    }
+
     # An array of valid keys in the options hash when configuring a {StatRaptor::Client}
     VALID_OPTIONS_KEYS = [
       :endpoint,
@@ -58,6 +63,14 @@ module StatRaptor
       self.platform_credentials          = DEFAULT_PLATFORM_CREDENTIALS
       self.disable_ssl_peer_verification = DEFAULT_DISABLE_SSL_PEER_VERIFICATION
       self
+    end
+
+    def timeout_in_seconds
+      self.timeout / 1000.0
+    end
+
+    def full_uri(path)
+      "#{StatRaptor.endpoint}#{path}"
     end
   end
 end

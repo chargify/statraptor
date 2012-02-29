@@ -1,3 +1,3 @@
 StatRaptor Todo:
 - Raise an error on a timeout
-- Set the user_agent for all HTTP calls
+- Allow specifying an http adapter in the config

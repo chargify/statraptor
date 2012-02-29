@@ -15,6 +15,9 @@ module StatRaptor
     require 'statraptor/client/graphs'
     include StatRaptor::Client::Graphs
 
+    require 'statraptor/client/adapters/rest_client'
+    require 'statraptor/client/adapters/typhoeus'
+
     attr_accessor *Config::VALID_OPTIONS_KEYS
 
     # Initializes a new API object
@@ -30,38 +33,26 @@ module StatRaptor
 
     private
 
-    def get(url, params = {})
-      request_and_parse :get, url, params
+    def get(path, params = {})
+      request_and_parse :get, path, params
     end
 
-    def post(url, params = {})
-      request_and_parse :post, url, params
+    def post(path, params = {})
+      request_and_parse :post, path, params
     end
 
-    def put(url, params = {})
-      request_and_parse :put, url, params
+    def put(path, params = {})
+      request_and_parse :put, path, params
     end
 
-    def delete(url, params = {})
-      request_and_parse :delete, url, params
+    def delete(path, params = {})
+      request_and_parse :delete, path, params
     end
 
-    def request_and_parse(method, url, params = {})
-      response = request_api_response(method, url, params)
+    def request_and_parse(method, path, params = {})
+      response = Client::Adapters::RestClient.request_api_response(method, path, params)
       handle_response(response)
       parse_response(response)
-    end
-
-    def request_api_response(method, url, params = {})
-      params.merge!(:platform_credentials => StatRaptor.platform_credentials)
-
-      Typhoeus::Request.run(
-        "#{StatRaptor.endpoint}/api/v1#{url}",
-        :method => method,
-        :params => params,
-        :disable_ssl_peer_verification => StatRaptor.disable_ssl_peer_verification,
-        :timeout => StatRaptor.timeout
-      )
     end
 
     def parse_response(response)
