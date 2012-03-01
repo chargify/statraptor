@@ -24,3 +24,7 @@
 ## 0.2.2 (February 29, 2012)
 
 * Small change to depend on an earlier release of RestClient to improve gem compatibility
+
+## 0.2.3 (March 1, 2012)
+
+* Add suppoort for `client.find_or_create_user`
