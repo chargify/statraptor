@@ -38,5 +38,25 @@ describe StatRaptor::Client::Projects do
         client.delete_project(:user_credentials => "abc123", :subdomain => "modern-marvels")
       }.should raise_error(StatRaptor::Error::Unauthorized, "Invalid user API key specified")
     end
+
+    # TODO: The StatRaptor API seems to prevent
+    # this scenario from being possible currently
+    it "allows re-creating a deleted project" do
+      # Set up a user and project
+      user = client.create_user(:email => random_email, :chargify_api_key => "ABC123")
+      project = client.create_project(:user_credentials => user["user_credentials"], :project => {
+       :name => "Modern Marvels", :subdomain => "modern-marvels", :component => "advanced" 
+      })
+
+      # Delete the project
+      client.delete_project(:user_credentials => user["user_credentials"], :subdomain => "modern-marvels")
+
+      # Recreate the project
+      lambda {
+        project = client.create_project(:user_credentials => user["user_credentials"], :project => {
+         :name => "Modern Marvels", :subdomain => "modern-marvels", :component => "advanced" 
+        })
+      }.should_not raise_error(StatRaptor::Error, "Subdomain has already been taken")
+    end
   end
 end
