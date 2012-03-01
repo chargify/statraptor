@@ -39,8 +39,6 @@ describe StatRaptor::Client::Projects do
       }.should raise_error(StatRaptor::Error::Unauthorized, "Invalid user API key specified")
     end
 
-    # TODO: The StatRaptor API seems to prevent
-    # this scenario from being possible currently
     it "allows re-creating a deleted project" do
       # Set up a user and project
       user = client.create_user(:email => random_email, :chargify_api_key => "ABC123")
