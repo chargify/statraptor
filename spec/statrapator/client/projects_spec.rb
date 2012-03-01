@@ -56,5 +56,33 @@ describe StatRaptor::Client::Projects do
         })
       }.should_not raise_error(StatRaptor::Error, "Subdomain has already been taken")
     end
+
+    it "allows deleting and re-creating a project multiple times" do
+      # Set up a user and project
+      user = client.create_user(:email => random_email, :chargify_api_key => "ABC123")
+
+      # Create project once
+      project = client.create_project(:user_credentials => user["user_credentials"], :project => {
+       :name => "Modern Marvels", :subdomain => "modern-marvels", :component => "advanced"
+      })
+
+      # Delete project
+      client.delete_project(:user_credentials => user["user_credentials"], :subdomain => "modern-marvels")
+
+      # Create project for the second time
+      project = client.create_project(:user_credentials => user["user_credentials"], :project => {
+       :name => "Modern Marvels", :subdomain => "modern-marvels", :component => "advanced"
+      })
+
+      # Delete the project
+      client.delete_project(:user_credentials => user["user_credentials"], :subdomain => "modern-marvels")
+
+      # Create project for the third time
+      lambda {
+        project = client.create_project(:user_credentials => user["user_credentials"], :project => {
+         :name => "Modern Marvels", :subdomain => "modern-marvels", :component => "advanced"
+        })
+      }.should_not raise_error(StatRaptor::Error, "Subdomain has already been taken")
+    end
   end
 end
