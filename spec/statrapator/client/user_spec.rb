@@ -55,4 +55,27 @@ describe StatRaptor::Client::Users do
       user['email'].should == email
     end
   end
+
+  describe "#get_user", :vcr do
+    it "raises a NotImplementedError" do
+      lambda {
+        client.get_user('leroy-jenkins')
+      }.should raise_error(NotImplementedError)
+    end
+
+    it "raises a StatRaptor::Error::NotFound if the user doesn't exist", :pending => true do
+      lambda {
+        client.get_user("silly-fake-user")
+      }.should raise_error(StatRaptor::Error::NotFound)
+    end
+
+    it "returns a user hash if the user is found", :pending => true do
+      email = random_email
+      existing_user = client.create_user(:email => email, :chargify_api_key => "foobar-123")
+      user = client.get_user(existing_user["user_credentials"])
+      user['user_credentials'].should == existing_user["user_credentials"]
+      user['chargify_api_key'].should == 'foobar-123'
+      user['email'].should == email
+    end
+  end
 end

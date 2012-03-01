@@ -18,6 +18,12 @@ module StatRaptor
         user = users.detect{|u| (u['email'] == params[:email]) && (u['chargify_api_key'] == params[:chargify_api_key])}
         !!user ? user : create_user(params)
       end
+
+      # This StatRaptor API endpoint isn't available yet
+      def get_user(user_credentials)
+        raise NotImplementedError
+        get("/api/v1/users/#{user_credentials}.json")
+      end
     end
   end
 end
