@@ -14,3 +14,13 @@
   * All other errors are raised as a generic StatRaptor::Error
   * Errors now include a nice parsed error message if one exists in the StatRaptor response
 * All public methods now return a hash on success instead of JSON
+
+## 0.2.1 (February 29, 2012)
+
+* Use RestClient as the default HTTP library
+  * Typhoeus bug forced this change: https://github.com/dbalatero/typhoeus/issues/96
+* Set a User-Agent header for all HTTP requests
+
+## 0.2.2 (February 29, 2012)
+
+* Small change to depend on an earlier release of RestClient to improve gem compatibility
