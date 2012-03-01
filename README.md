@@ -16,6 +16,7 @@ client = StatRaptor::Client.new
 
 # Manage users
 client.create_user(:email => "timmy@example.com", :chargify_api_key => "XYZ456")
+client.find_or_create_user(:email => "timmy@example.com", :chargify_api_key => "XYZ456")
 client.delete_user("akskd8328389281728918")
 client.get_users
 

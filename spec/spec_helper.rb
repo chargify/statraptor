@@ -16,6 +16,7 @@ RSpec.configure do |config|
   config.filter_run :focused => true
   config.run_all_when_everything_filtered = true
   config.alias_example_to :fit, :focused => true
+  config.alias_example_to :xit, :disabled => true
   config.color_enabled = true
 
   # so we can use `:vcr` rathaner than `:vcr => true`;
@@ -36,6 +37,7 @@ VCR.configure do |config|
   config.cassette_library_dir = 'spec/cassettes'
   config.configure_rspec_metadata!
   config.default_cassette_options = {:record => :new_episodes, :match_requests_on => [:uri, :body, :headers]}
+  config.allow_http_connections_when_no_cassette = true
 end
 
 def platform_credentials

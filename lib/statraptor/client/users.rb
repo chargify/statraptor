@@ -12,6 +12,12 @@ module StatRaptor
       def get_users
         get("/api/v1/users.json")
       end
+
+      def find_or_create_user(params = {})
+        users = get_users
+        user = users.detect{|u| (u['email'] == params[:email]) && (u['chargify_api_key'] == params[:chargify_api_key])}
+        !!user ? user : create_user(params)
+      end
     end
   end
 end
