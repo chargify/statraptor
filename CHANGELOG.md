@@ -28,3 +28,7 @@
 ## 0.2.3 (March 1, 2012)
 
 * Add suppoort for `client.find_or_create_user`
+
+## 0.2.4 (March 6, 2012)
+
+* Drop support for Typhoeus
