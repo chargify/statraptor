@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'typhoeus'
 require 'json'
 require 'rest_client'
 require 'statraptor/version'

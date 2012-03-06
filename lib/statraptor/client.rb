@@ -16,7 +16,6 @@ module StatRaptor
     include StatRaptor::Client::Graphs
 
     require 'statraptor/client/adapters/rest_client'
-    require 'statraptor/client/adapters/typhoeus'
 
     attr_accessor *Config::VALID_OPTIONS_KEYS
 
