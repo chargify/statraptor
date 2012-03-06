@@ -32,3 +32,7 @@
 ## 0.2.4 (March 6, 2012)
 
 * Drop support for Typhoeus
+
+## 0.2.5 (March 6, 2012)
+
+* No, like actually drop support for Typhoeus

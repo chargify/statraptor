@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
 
   # Runtime Dependencies
   s.add_runtime_dependency('activeresource', '>= 2.3.5')
-  s.add_runtime_dependency('typhoeus', '>= 0.3.3')
   s.add_runtime_dependency('json', '>= 1.4.6')
   s.add_runtime_dependency('rest-client', '>= 1.6.6')
 
