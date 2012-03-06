@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = "statraptor"
   s.version     = StatRaptor::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.date        = "2012-03-01"
+  s.date        = "2012-03-06"
   s.authors     = ["Shay Frendt"]
   s.email       = "shay.frendt@gmail.com"
   s.homepage    = "http://github.com/chargify/statraptor"

@@ -36,3 +36,7 @@
 ## 0.2.5 (March 6, 2012)
 
 * No, like actually drop support for Typhoeus
+
+## 0.2.6 (March 6, 2012)
+
+* Update the default StatRaptor API endpoint
