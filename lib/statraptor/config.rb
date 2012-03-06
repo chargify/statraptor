@@ -6,7 +6,7 @@ module StatRaptor
   module Config
 
     # The endpoint that will be used to connect if none is set
-    DEFAULT_ENDPOINT = "https://statraptor.com/api/v1"
+    DEFAULT_ENDPOINT = "https://statraptor.com"
 
     # The value sent in the 'User-Agent' header if none is set
     DEFAULT_USER_AGENT = "StatRaptor Ruby Gem #{StatRaptor::VERSION}"

@@ -11,7 +11,7 @@ describe StatRaptor do
 
   describe ".endpoint" do
     it "should return the default endpoint" do
-      StatRaptor.endpoint.should == StatRaptor::Config::DEFAULT_ENDPOINT
+      StatRaptor.endpoint.should == "https://statraptor.com"
     end
   end
 
